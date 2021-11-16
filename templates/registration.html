@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Free Thinkers | Registration</title>
+    {% if theme == 1 %}
+    <link rel="stylesheet" href="{{url_for('static', filename='loginstyle.css')}}">
+    {% else %}
+    <link rel="stylesheet" href="{{url_for('static', filename='loginstyledark.css')}}">
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/image/favicon.png')}}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+
+<body>
+    <div class="animation">
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+    </div>
+    <div class="header">
+        <a href="{{ url_for('index') }}"><button>Home</button></a>
+        <a href="{{ url_for('login') }}"><button>Sign In</button></a>
+    </div>
+    <div class="loginbox">
+        <h1>Regi<span style="color:crimson">ster</span></h1>
+        <h3>{{ info }}</h3>
+        <form action="/register/ans" method="post">
+            <input type="text" name="username" placeholder="Name">
+            <input type="text" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="text" name="department" placeholder="Department">
+            <input type="submit" name="" value="Register">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Free Thinkers | Home</title>
+    {% if theme == 1 %}
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    {% else %}
+    <link rel="stylesheet" href="{{url_for('static', filename='styledark.css')}}">
+    {% endif %}
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/image/favicon.png')}}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+
+<body>
+    <div class="animation">
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+    </div>
+    <div class="header">
+        <a href="{{ url_for('login') }}"><button>Sign In</button></a>
+        <a href="{{ url_for('register') }}"><button>Register</button></a>
+    </div>
+    <div class="wrapper">
+        <div class="title-name">
+            <h1>Free <span style="color:crimson">Thinkers</span></h1>
+        </div>
+        <form action='/search' method="post">
+            <div class="search_box">
+                <input name="search_query" type="text" class="input_search" placeholder="Enter a Keyword">
+            </div>
+        </form>
+        
+    </div>
+    
+    <div class="header">
+    	<a href="{{ url_for('mode') }}"><button>{{ info }}</button></a>
+    </div>
+	
+</body>
+
+</html>

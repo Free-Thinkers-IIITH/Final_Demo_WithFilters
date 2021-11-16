@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/image/favicon.png')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {%
+    if theme == 1 %}
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}"> {% else %}
+    <link rel="stylesheet" href="{{url_for('static', filename='maindark.css')}}"> {% endif %} {% if title %}
+    <title>Free Thinkers | {{title}}</title>
+    {% else %}
+    <title> FLASK </title>
+    {% endif %}
+
+</head>
+
+<body>
+    <!-- <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top nav-custom">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="/">Home</a>
+                        <a class="nav-item nav-link" href="/org_insertion">Insert Paper</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="/login">Login</a>
+                        <a class="nav-item nav-link" href="/register">Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header> -->
+    <div class="animation">
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+        <div><span class="dot"></span></div>
+    </div>
+    <div class="header"><button><a href="/">Search</a></button></div>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                <div class="content-section">
+                    <h3>Filters</h3>
+                    <p class='text-muted'>
+                        <!-- <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">
+        
+                            </li>
+                            <li class="list-group-item list-group-item-light">Conference</li>
+                            <li class="list-group-item list-group-item-light">Topic</li>
+                            <li class="list-group-item list-group-item-light">etc</li>
+                        </ul> -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
+                            Year
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <!-- <input type="submit" name="" value="Login"> -->
+                            <form action="/search/filter/1" method="post">
+                                <button class="dropdown-item" type="submit"><a
+                                        class="dropdown-item">2010-21</a></button>
+                            </form>
+                            <form action="/search/filter/2" method="post">
+                                <button class="dropdown-item" type="submit"><a
+                                        class="dropdown-item">2000-09</a></button>
+                            </form>
+                            <form action="/search/filter/3" method="post">
+                                <button class="dropdown-item" type="submit"><a
+                                        class="dropdown-item">1990-00</a></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
+                            Rank
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <!-- <input type="submit" name="" value="Login"> -->
+                            <form action="/search/filter/A*" method="post">
+                                <button class="dropdown-item" type="submit"><a class="dropdown-item">A*</a></button>
+                            </form>
+                            <form action="/search/filter/A" method="post">
+                                <button class="dropdown-item" type="submit"><a class="dropdown-item">A</a></button>
+                            </form>
+                            <form action="/search/filter/B" method="post">
+                                <button class="dropdown-item" type="submit"><a class="dropdown-item">B</a></button>
+                            </form>
+                            <form action="/search/filter/C" method="post">
+                                <button class="dropdown-item" type="submit"><a class="dropdown-item">C</a></button>
+                            </form>
+                            <form action="/search" method="post">
+                                <button class="dropdown-item" type="submit"><a class="dropdown-item">All</a></button>
+                            </form>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        {{ pagination.links }}
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

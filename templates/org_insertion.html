@@ -1,0 +1,66 @@
+{% extends "layout.html" %} {% block content %}
+<div class="header">
+    <a href="{{ url_for('index') }}"><button>Home</button></a>
+    <a href="{{ url_for('log_out') }}"><button>Logout</button></a>
+</div>
+<!-- <div class="header"><button><a href="/">Search</a></button></div>
+<div class="header"><button><a href="/login">Login</a></button></div> -->
+<h1>Insert a new paper</h1>
+<br>
+<form action="/org_insertion" method="post">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="form-outline">
+                <input type="text" id="title" class="form-control" name="title" />
+                <label class="form-label" for="form6Example1">Title</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline">
+                <input type="text" id="authors" class="form-control" name="authors" />
+                <label class="form-label" for="form6Example2">Authors (comma seperated)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="venue" class="form-control" name="venue" />
+        <label class="form-label" for="form6Example3">Venue</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="number" id="year" class="form-control" name="year" />
+        <label class="form-label" for="form6Example4">Year</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="access" class="form-control" name="access" />
+        <label class="form-label" for="form6Example5">Access</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="url" id="url" class="form-control" name="url" />
+        <label class="form-label" for="form6Example6">URL</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="rank" class="form-control" name="rank" />
+        <label class="form-label" for="form6Example7">Rank</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="field" class="form-control" name="field" />
+        <label class="form-label" for="form6Example8">Fields (comma seperated)</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <textarea class="form-control" id="Description" rows="4"></textarea>
+        <label class="form-label" for="form6Example9">Description</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block mb-4">Insert Paper</button>
+
+    <!-- <a><button type="submit">Insert Paper</button></a> -->
+
+</form>
+{% endblock content %}
