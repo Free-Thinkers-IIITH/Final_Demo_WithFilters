@@ -221,7 +221,7 @@ def register_ans():
         return render_template('registration.html', info="Registered successfully !!!!", theme=current_theme+1)
 
 
-def get_posts(posts, offset=0, per_page=10):
+def get_posts(posts, offset=0, per_page=5):
     return posts[offset: offset + per_page]
 
 
@@ -235,7 +235,10 @@ def search():
         #remove extra while space from query
         query = query.strip()
         posts = get_papers(query,1000)
-    page, per_page, offset = get_page_args()
+    # page, per_page, offset = get_page_args()
+    page = int(request.args.get('page', 1))
+    per_page = 5
+    offset = (page - 1) * per_page
     total = len(posts)
     pagination_posts = get_posts(posts, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=total,
