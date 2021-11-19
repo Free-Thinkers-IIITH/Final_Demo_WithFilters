@@ -1,19 +1,18 @@
 ## Dependencies
+* mongoDB
+  * `sudo apt install mongodb`
 * python 3
 * pip3
   * `sudo apt install python3-pip`
 * pipenv
   * `pip3 install --user pipenv`
-* mongoDB
-  * `sudo apt install mongodb`
 
 ## Database Setup
-name -> dblp
-```
-mongo
-use dblp
-db.paper_collection.createIndex({"pid":1}, {background:true})
-db.keyword_collection.createIndex({"keyword":1}, {background:true})
+```bash
+    mongo
+    use dblp
+    db.paper_collection.createIndex({"pid":1}, {background:true})
+    db.keyword_collection.createIndex({"keyword":1}, {background:true})
 ```
 ## Basic Build Instructions
 
