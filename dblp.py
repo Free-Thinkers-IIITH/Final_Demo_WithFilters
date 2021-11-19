@@ -27,13 +27,19 @@ def fetch_dblp(topic, hit_count = 100):
         # get relevant data
         paper_list = list()
         # check if key 'hit' exists in data['result']['hits']
+        if 'hits' not in data['result']:
+            return paper_list
         if 'hit' not in data['result']['hits']:
             return paper_list
         for entry in data['result']['hits']['hit']:
             paper_info = {}
+            if 'info' not in entry:
+                continue
             if entry['info']['type'] == 'Conference and Workshop Papers':
                 paper_info['title'] = entry['info']['title']
                 author_lst = list()
+                if 'authors' not in entry['info']:
+                    continue
                 auths = entry['info']['authors']['author']
                 if isinstance(auths, dict):
                     author_lst.append(auths['text'])
