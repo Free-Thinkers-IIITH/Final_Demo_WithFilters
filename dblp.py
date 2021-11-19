@@ -3,6 +3,14 @@ import json
 import time
 from rank_mapper import build_rank_dict, get_rank
 
+#------------------Disable hash randomization------------------
+import os
+import sys
+hashseed = os.getenv('PYTHONHASHSEED')
+if not hashseed:
+    os.environ['PYTHONHASHSEED'] = '0'
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+#---------------------------------------------------------------
 
 def fetch_dblp(topic, hit_count = 100):
     url = "https://dblp.org/search/publ/api"

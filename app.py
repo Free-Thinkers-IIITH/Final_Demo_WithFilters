@@ -10,6 +10,16 @@ import threading
 from flask_mongoengine import MongoEngine
 import time
 
+#------------------Disable hash randomization------------------
+import os
+import sys
+hashseed = os.getenv('PYTHONHASHSEED')
+if not hashseed:
+    os.environ['PYTHONHASHSEED'] = '0'
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+    
+#----------------------Flask App----------------------------------
+
 app = Flask(__name__)
 app.secret_key = "hi there"
 user = User()
@@ -214,6 +224,8 @@ def search():
     if len(posts) == 0:
         query = request.form['search_query']
         # posts = fetch_from_db(query)
+        #remove extra while space from query
+        query = query.strip()
         posts = get_papers(query,1000)
     page, per_page, offset = get_page_args()
     total = len(posts)
