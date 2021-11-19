@@ -10,6 +10,7 @@ dnspython = "*"
 gunicorn = "*"
 bcrypt = "*"
 flask-paginate = "*"
+flask-mongoengine = "*"
 
 [dev-packages]
 
