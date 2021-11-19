@@ -49,23 +49,30 @@ db = MongoEngine(app)
 
 
 class paper_collection(db.Document):
-    pid = db.StringField()
+    pid = db.IntField() #hash value
     title = db.StringField()
     year = db.IntField()
     authors = db.ListField(db.StringField())
     venue = db.StringField()
     rank = db.StringField()
-    keywords = db.ListField(db.StringField())
+    keywords = db.ListField(db.IntField()) #list of keyword hashes
     url = db.StringField()
+
 # create a keyword to paper id mapping
-
-
 class keyword_collection(db.Document):
-    keyword = db.StringField()
-    papers = db.ListField(db.StringField())
+    keyword = db.IntField() #hash value
+    papers = db.ListField(db.IntField()) #list of paper id (hash value)
+
+#Run in terminal: db.paper_collection.createIndex({"pid":1}, {background:true})
+# db.keyword_collection.createIndex({"keyword":1}, {background:true})
 
 
-def insert_paper(key, paper_list):
+def insert_paper_new_design(key, paper_list):
+    """
+    key -> string eg machine learning
+    paper_list -> list of dict
+    dict fields -> id,title,year,authors(list),venue,rank,keyword(hash value)
+    """
     # insert the papers into the database
     for paper in paper_list:
         pid = paper['id']
@@ -87,20 +94,20 @@ def insert_paper(key, paper_list):
             new_paper.url = paper['url']
             new_paper.save()
         # update keyword to paper id mapping
-        temp = keyword_collection.objects(keyword=str(hash(key))).first()
+        temp = keyword_collection.objects(keyword=hash(key)).first()
         if temp:
             temp.papers.append(paper['id'])
             temp.save()
         else:
             new_keyword = keyword_collection()
-            new_keyword.keyword = str(hash(key))
+            new_keyword.keyword = hash(key)
             new_keyword.papers.append(paper['id'])
             new_keyword.save()
     print('Insertion Completed!')
 
 
 def get_papers(key, hits=30):
-    temp = keyword_collection.objects(keyword=str(hash(key))).first()
+    temp = keyword_collection.objects(keyword=hash(key)).first()
     if temp:
         start = time.time()
         print(f'fetching {key} papers From DB')
@@ -125,7 +132,7 @@ def get_papers(key, hits=30):
         print(f'Total {len(paper_list)} papers fetched in {end-start} seconds')
         print('New thread is inserting to db')
         # create a new thread to insert the papers into the database
-        t = threading.Thread(target=insert_paper, args=(key, paper_list))
+        t = threading.Thread(target=insert_paper_new_design, args=(key, paper_list))
         t.start()
     return paper_list
 
