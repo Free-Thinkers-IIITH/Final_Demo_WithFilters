@@ -228,7 +228,8 @@ def get_posts(posts, offset=0, per_page=10):
 @app.route('/search', methods=['POST', 'GET'])
 def search():
     global posts
-    if len(posts) == 0:
+    # if len(posts) == 0:
+    if 'search_query' in request.form and request.form['search_query']:
         query = request.form['search_query']
         # posts = fetch_from_db(query)
         #remove extra while space from query
