@@ -52,7 +52,7 @@ def fetch_dblp(topic, hit_count = 100):
                 paper_info['id'] = hash(paper_info['title'] + paper_info['venue'] + paper_info['year'])
                 paper_info['url'] = entry['info']['url']
                 paper_info['rank'] = get_rank(
-                    paper_info['venue'].split()[0].lower())
+                    paper_info['venue'].split()[0].lower()) # get rank based on acronym
                 paper_info['keyword']=hash(topic)
                 paper_list.append(paper_info)
         # write to file
