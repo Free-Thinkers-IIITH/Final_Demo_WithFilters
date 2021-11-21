@@ -2,12 +2,9 @@ from flask import Flask, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
 from datetime import datetime
 from user_management import User
-from insert_paper import insert_paper
 from db import get_papers, insert_paper_new_design
 from rank_mapper import insert_conf_ranks
-from models import Conference
 import os
-import json
 import sys
 
 # ------------------Disable hash randomization------------------
@@ -409,10 +406,12 @@ def org_insertion():
                     paper_info['year'])
         keys = request.form['field'].strip().lower().split(',')
         for key in keys:
+            key = key.replace(' ', '+')
             paper_list = []
             temp = paper_info.copy()
             temp['keyword'] = hash(key)
             paper_list.append(temp)
+            print(paper_list)
             insert_paper_new_design(key,paper_list)
         return render_template('org_insertion.html', theme=current_theme + 1)
 

@@ -20,9 +20,9 @@ class keyword_collection(Document):
     papers = ListField(IntField())  # list of paper id (hash value)
 
 
-class Conference(Document):
-    conf_id = IntField()
-    rank = StringField()
+# class Conference(Document):
+#     conf_id = IntField()
+#     rank = StringField()
 
 # Run in terminal:
 # db.paper_collection.createIndex({"pid":1}, {background:true})

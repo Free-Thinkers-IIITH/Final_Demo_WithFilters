@@ -43,8 +43,12 @@ def insert_paper_new_design(key, paper_list):
         # update keyword to paper id mapping
         temp = keyword_collection.objects(keyword=hash(key)).first()
         if temp:
-            temp.papers.append(paper['id'])
-            temp.save()
+            if paper['id'] not in temp.papers:
+                temp.papers.append(paper['id'])
+                temp.save()
+                number_of_key_updates += 1
+            # temp.papers.append(paper['id'])
+            # temp.save()
         else:
             new_keyword = keyword_collection()
             new_keyword.keyword = hash(key)
