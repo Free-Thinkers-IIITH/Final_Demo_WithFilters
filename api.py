@@ -1,7 +1,8 @@
 import urllib.request
 import json
 import time
-from rank_mapper import build_rank_dict, get_rank
+from rank_mapper import get_rank
+
 
 #------------------Disable hash randomization------------------
 import os
@@ -47,12 +48,11 @@ def fetch_dblp(topic, hit_count = 100):
                     for a in auths:
                         author_lst.append(a['text'])
                 paper_info['authors'] = author_lst
-                paper_info['venue'] = entry['info']['venue']
+                paper_info['venue'] = entry['info']['venue'].split()[0].lower()
                 paper_info['year'] = entry['info']['year']
-                paper_info['id'] = hash(paper_info['title'] + paper_info['venue'] + paper_info['year'])
+                paper_info['id'] = hash(paper_info['title'].lower() + paper_info['venue'] + paper_info['year'])
                 paper_info['url'] = entry['info']['url']
-                paper_info['rank'] = get_rank(
-                    paper_info['venue'].split()[0].lower()) # get rank based on acronym
+                paper_info['rank'] = get_rank(paper_info['venue'])
                 paper_info['keyword']=hash(topic)
                 paper_list.append(paper_info)
         # write to file
@@ -60,6 +60,16 @@ def fetch_dblp(topic, hit_count = 100):
         return paper_list
 
 
+
+def semantic_scholar(q,h):
+    url = "http://api.semanticscholar.org/graph/v1/paper/search" 
+    params = { 
+        "query": q,
+        "limit": h,
+        "fields": "title,authors,venue,year,url" 
+    }     
+    query_string = urllib.parse.urlencode( params ) 
+    url = url + "?" + query_string 
 # build_rank_dict('ranks1.json')
 # build_rank_dict('ranks2.json')
 
