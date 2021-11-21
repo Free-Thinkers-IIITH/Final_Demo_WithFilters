@@ -23,8 +23,9 @@ user = User()
 posts = []
 
 # Conference collcetion in db
-if Conference.objects.count() == 0:
-    insert_conf_ranks()
+# if Conference.objects.count() == 0:
+#     insert_conf_ranks()
+insert_conf_ranks()
 
 current_theme = 0
 conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
