@@ -7,6 +7,7 @@ from db import get_papers, insert_paper_new_design
 from rank_mapper import insert_conf_ranks
 from models import Conference
 import os
+import json
 import sys
 
 # ------------------Disable hash randomization------------------
@@ -394,17 +395,28 @@ def searchFilterRank4():
 @app.route('/org_insertion', methods=['POST', 'GET'])
 def org_insertion():
     if(user.check()):
-        details = dict()
-        details['title'] = request.form['title']
-        details['authors'] = request.form['authors'].split(',')
-        details['venue'] = request.form['venue']
-        details['year'] = request.form['year']
-        details['access'] = request.form['access']
-        details['url'] = request.form['url']
-        details['rank'] = request.form['rank']
-        details['keywords'] = request.form['field'].split(',')
-        # print(details)
-        insert_paper(details)
+        paper_info = {}
+        paper_info['title'] = request.form['title']
+        paper_info['authors'] = request.form['authors'].split(',')
+        paper_info['venue'] = request.form['venue']
+        paper_info['year'] = request.form['year']
+        paper_info['access'] = request.form['access']
+        paper_info['url'] = request.form['url']
+        paper_info['rank'] = request.form['rank']
+        paper_info['id'] = hash(
+                    paper_info['title'].lower() +
+                    paper_info['venue'] +
+                    paper_info['year'])
+        # paper_info['keywords'] = request.form['field'].split(',')
+        keys = request.form['field'].strip().lower().split(',')
+        for key in keys:
+            paper_list = []
+            temp = paper_info.copy()
+            temp['keyword'] = hash(key)
+            paper_list.append(temp)
+            insert_paper_new_design(key,paper_list)
+        # print(paper_info)
+        # insert_paper(paper_info)
         return render_template('org_insertion.html', theme=current_theme + 1)
 
     else:
