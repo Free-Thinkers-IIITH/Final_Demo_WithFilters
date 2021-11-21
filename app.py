@@ -407,7 +407,6 @@ def org_insertion():
                     paper_info['title'].lower() +
                     paper_info['venue'] +
                     paper_info['year'])
-        # paper_info['keywords'] = request.form['field'].split(',')
         keys = request.form['field'].strip().lower().split(',')
         for key in keys:
             paper_list = []
@@ -415,8 +414,6 @@ def org_insertion():
             temp['keyword'] = hash(key)
             paper_list.append(temp)
             insert_paper_new_design(key,paper_list)
-        # print(paper_info)
-        # insert_paper(paper_info)
         return render_template('org_insertion.html', theme=current_theme + 1)
 
     else:
