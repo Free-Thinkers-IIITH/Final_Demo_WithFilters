@@ -2,6 +2,8 @@ from models import *
 import threading
 import json
 import time
+
+
 def build_rank(file_name):
     with open(file_name) as f:
         for conf in json.load(f):
@@ -12,6 +14,8 @@ def build_rank(file_name):
             conf_id = hash(conf['Acronym'].lower())
             if not Conference.objects(conf_id=conf_id).first():
                 Conference(conf_id=conf_id, rank=rank).save()
+
+
 def get_rank(conf_name):
     conf_name = conf_name.lower()
     conf_id = hash(conf_name.split()[0])
@@ -25,9 +29,11 @@ def get_rank(conf_name):
             return temp.rank
     return None
 
-#if paper_collection is empty, run this function
+# if paper_collection is empty, run this function
+
+
 def insert_conf_ranks():
-    files = ['Ranks/rank1.json','Ranks/rank2.json','Ranks/rank3.json']
+    files = ['Ranks/rank1.json', 'Ranks/rank2.json', 'Ranks/rank3.json']
     print('Inserting Conference Ranks')
     start = time.time()
     threads = []

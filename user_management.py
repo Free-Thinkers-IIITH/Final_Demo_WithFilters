@@ -38,10 +38,10 @@ class User:
     def login(self, username, password):
         if self.check():
             if session['username'] == username:
-            # return ' user logged in'
+                # return ' user logged in'
                 return -1
             else:
-            # return ' another user logged in'
+                # return ' another user logged in'
                 return -4
         user_found = self.records.find_one({"username": username})
         if not user_found:

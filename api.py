@@ -4,16 +4,17 @@ import time
 from rank_mapper import get_rank
 
 
-#------------------Disable hash randomization------------------
+# ------------------Disable hash randomization------------------
 import os
 import sys
 hashseed = os.getenv('PYTHONHASHSEED')
 if not hashseed:
     os.environ['PYTHONHASHSEED'] = '0'
     os.execv(sys.executable, [sys.executable] + sys.argv)
-#---------------------------------------------------------------
+# ---------------------------------------------------------------
 
-def fetch_dblp(topic, hit_count = 100):
+
+def fetch_dblp(topic, hit_count=100):
     url = "https://dblp.org/search/publ/api"
     params = {
         "q": topic,
@@ -50,26 +51,28 @@ def fetch_dblp(topic, hit_count = 100):
                 paper_info['authors'] = author_lst
                 paper_info['venue'] = entry['info']['venue'].split()[0].lower()
                 paper_info['year'] = entry['info']['year']
-                paper_info['id'] = hash(paper_info['title'].lower() + paper_info['venue'] + paper_info['year'])
+                paper_info['id'] = hash(
+                    paper_info['title'].lower() +
+                    paper_info['venue'] +
+                    paper_info['year'])
                 paper_info['url'] = entry['info']['url']
                 paper_info['rank'] = get_rank(paper_info['venue'])
-                paper_info['keyword']=hash(topic)
+                paper_info['keyword'] = hash(topic)
                 paper_list.append(paper_info)
         # write to file
         # open(topic, 'w').write(json.dumps(paper_list))
         return paper_list
 
 
-
-def semantic_scholar(q,h):
-    url = "http://api.semanticscholar.org/graph/v1/paper/search" 
-    params = { 
+def semantic_scholar(q, h):
+    url = "http://api.semanticscholar.org/graph/v1/paper/search"
+    params = {
         "query": q,
         "limit": h,
-        "fields": "title,authors,venue,year,url" 
-    }     
-    query_string = urllib.parse.urlencode( params ) 
-    url = url + "?" + query_string 
+        "fields": "title,authors,venue,year,url"
+    }
+    query_string = urllib.parse.urlencode(params)
+    url = url + "?" + query_string
 # build_rank_dict('ranks1.json')
 # build_rank_dict('ranks2.json')
 
