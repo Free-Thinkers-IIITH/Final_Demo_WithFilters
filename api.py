@@ -64,15 +64,52 @@ def fetch_dblp(topic, hit_count=100):
         return paper_list
 
 
-def semantic_scholar(q, h):
-    url = "http://api.semanticscholar.org/graph/v1/paper/search"
-    params = {
-        "query": q,
+def fetch_semantic_scholar(topic,h):
+    h = min(h,100)
+    url = "http://api.semanticscholar.org/graph/v1/paper/search" 
+    params = { 
+        "query": topic,
         "limit": h,
-        "fields": "title,authors,venue,year,url"
-    }
-    query_string = urllib.parse.urlencode(params)
-    url = url + "?" + query_string
+        "fields": "title,authors,venue,year,url" 
+    }     
+    query_string = urllib.parse.urlencode( params ) 
+    url = url + "?" + query_string 
+    with urllib.request.urlopen(url) as url_:
+        data = json.loads(url_.read().decode())
+        paper_list = list()
+        for entry in data['data']:
+            paper_info = {}
+            if entry['title'] == '':
+                continue
+            paper_info['title'] = entry['title']
+            author_lst = list()
+            if entry['authors'] is None:
+                continue
+            for a in entry['authors']:
+                if 'name' in a:
+                    author_lst.append(a['name'])
+                # author_lst.append(a['name'])
+            if len(author_lst) == 0:
+                continue
+            paper_info['authors'] = author_lst
+            if entry['venue'] == '':
+                continue
+            paper_info['venue'] = entry['venue']
+            if entry['year'] is None or entry['year'] == '':
+                continue
+            paper_info['year'] = entry['year']
+            if entry['url'] is None:
+                continue
+            paper_info['url'] = entry['url']
+            paper_info['id'] = hash(
+                    paper_info['title'].lower() +
+                    paper_info['venue'] +
+                    str(paper_info['year']))
+            paper_info['keyword'] = hash(topic)
+            rank = get_rank(paper_info['venue'])
+            paper_info['rank'] = rank
+            paper_list.append(paper_info)
+        return paper_list
 # build_rank_dict('ranks1.json')
 # build_rank_dict('ranks2.json')
 

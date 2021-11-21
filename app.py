@@ -163,7 +163,7 @@ def search():
         query = query.strip().lower()
         query = ' '.join(query.split())
         query = query.replace(' ', '+')
-        posts = get_papers(query, 1000)
+        posts = get_papers(query, 100)
     # page, per_page, offset = get_page_args()
     page = int(request.args.get('page', 1))
     per_page = 5
